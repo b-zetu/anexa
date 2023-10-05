@@ -1,0 +1,47 @@
+CODE_MAX_LENGTH = 20
+VALUE_MAX_LENGTH = 200
+
+application {
+  config {
+    baseName escor
+    packageName org.mware.escor
+    jhiPrefix sx
+    blueprints [entity-audit]
+    applicationType monolith
+    authenticationType jwt
+    clientFramework angularX
+    databaseType sql
+    devDatabaseType mariadb
+    prodDatabaseType mariadb
+    buildTool maven
+    clientPackageManager npm
+    clientTheme flatly
+    clientThemeVariant primary
+  }
+  entities all
+  dto * with mapstruct
+  service * with serviceClass
+}
+
+
+entity Anexa {
+	titluDocument String,
+    descriereContinutDocument String,
+    tipAnexa TipAnexaEnum,
+    destinatar String
+}
+
+entity NomUnitateParchet {
+  code String required maxlength(CODE_MAX_LENGTH)
+  value String required maxlength(VALUE_MAX_LENGTH)
+}
+
+enum TipAnexaEnum {
+ AFRONT("aFRONT"),
+    APOL("aPOL")
+}
+
+
+relationship ManyToOne {
+  Anexa{unitateParchet} to NomUnitateParchet 
+}
